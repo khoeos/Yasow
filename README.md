@@ -12,7 +12,7 @@
     A bare-bone starter kit for your obsidian vault on modern web technologies.
     <br />
     <br/>
-    <a href="https://github.com/khoeos/Yasow">Explore the docs »</a>
+    <a href="https://yasow.vercel.app/">Explore the docs »</a>
     <br />
     <br />
     <a href="https://github.com/khoeos/Yasow/issues">Report Bug</a>

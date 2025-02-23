@@ -1,0 +1,126 @@
+import CanvasViewer from '@/components/CanvasViewer';
+
+const data = {
+  nodes: [
+    {
+      id: '9713bed2e6e3d5dc',
+      type: 'text',
+      text: '<center><h3>One</h3> </center>\n<center>0 > 5000</center>\n\n',
+      x: -900,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: 'a7901741475f6035',
+      type: 'text',
+      text: '<center><h3>Two</h3> </center>\n<center>5000 > 5200</center>\n\n',
+      x: -460,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: '7846d77596a7cecd',
+      type: 'text',
+      text: '<center><h3>Three</h3> </center>\n<center>5200 > 5800</center>\n\n',
+      x: -40,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: '02ed2591cc435b0e',
+      type: 'text',
+      text: '<center><h3>Four</h3> </center>\n<center>5800 > 6800</center>\n\n',
+      x: 380,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: 'f54a748f9129fc89',
+      type: 'text',
+      text: '<center><h3>Five</h3> </center>\n<center>6800>7500</center>\n\n',
+      x: 800,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: '5347ec15292b4014',
+      type: 'text',
+      text: '<center><h3>Six</h3> </center>\n<center>7500 > 8000</center>\n\n',
+      x: 1220,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: '3c0eb1bba96fda95',
+      type: 'text',
+      text: '<center><h3>Seven</h3> </center>\n<center>8000+</center>\n\n',
+      x: 1660,
+      y: -640,
+      width: 380,
+      height: 120,
+    },
+    {
+      id: 'c596af93f9d8cd17',
+      type: 'text',
+      text: '5800 \n**Eight [[Disclaimer]]**',
+      x: 400,
+      y: -480,
+      width: 340,
+      height: 60,
+    },
+  ],
+  edges: [
+    {
+      id: '47248ab04922303c',
+      fromNode: '9713bed2e6e3d5dc',
+      fromSide: 'right',
+      toNode: 'a7901741475f6035',
+      toSide: 'left',
+    },
+    {
+      id: '6e0a0cff9fea84a1',
+      fromNode: 'a7901741475f6035',
+      fromSide: 'right',
+      toNode: '7846d77596a7cecd',
+      toSide: 'left',
+    },
+    {
+      id: 'e5ad6aa24c3c9187',
+      fromNode: '7846d77596a7cecd',
+      fromSide: 'right',
+      toNode: '02ed2591cc435b0e',
+      toSide: 'left',
+    },
+    {
+      id: 'cff8797694540489',
+      fromNode: '02ed2591cc435b0e',
+      fromSide: 'right',
+      toNode: 'f54a748f9129fc89',
+      toSide: 'left',
+    },
+    {
+      id: '7549897af23492c6',
+      fromNode: 'f54a748f9129fc89',
+      fromSide: 'right',
+      toNode: '5347ec15292b4014',
+      toSide: 'left',
+    },
+    {
+      id: 'b86fa6ac6ae6fa70',
+      fromNode: '5347ec15292b4014',
+      fromSide: 'right',
+      toNode: '3c0eb1bba96fda95',
+      toSide: 'left',
+    },
+  ],
+};
+
+export default async function Page() {
+  return <CanvasViewer canvasData={data} />;
+}

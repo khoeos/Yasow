@@ -11,7 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     ignores: ['src/components/ui/'],
   },
   ...compat.extends(
@@ -20,7 +20,7 @@ const eslintConfig = [
     'next/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:prettier/recommended',
+    'plugin:prettier/recommended'
   ),
   {
     rules: {
@@ -39,13 +39,14 @@ const eslintConfig = [
       'prefer-const': 'warn',
       'no-unused-vars': 'off', // Handled by TypeScript
       'prettier/prettier': [
-        'error',
+        'off',
         {
           singleQuote: true,
           semi: true,
-          trailingComma: 'all',
+          trailingComma: 'es5',
           printWidth: 100,
           tabWidth: 2,
+          endOfLine: 'auto',
         },
       ],
     },

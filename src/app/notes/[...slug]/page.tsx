@@ -31,7 +31,8 @@ export default async function NotePage({ params }: NotePageProps) {
   const segments = (await params).slug.map(decodeURIComponent);
 
   try {
-    const { note, category } = await fetchData(segments);
+    const data = await fetchData(segments);
+    const { note, category } = data;
     if (note) {
       return (
         <>

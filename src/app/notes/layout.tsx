@@ -8,8 +8,8 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/s
 import NoteBreadcrumb from '@/components/layout/NoteBreadcrumb';
 import { ModeToggle } from '@/components/ModeToggle';
 import { TreeNode } from '@/types/types';
-
-const FOLDER = path.join(process.cwd(), 'src', 'notes');
+import { DISTANT_BASE_URL, FOLDER, SOURCE } from '@/config';
+import { getFilesDistant } from '@/utils/data';
 
 /**
  * Recursive function to build the folder/file tree.
@@ -48,7 +48,7 @@ async function getTree(dirPath: string, basePath = ''): Promise<TreeNode[]> {
           children: [],
         };
       }
-    }),
+    })
   );
 
   // Sort folders first, then files
@@ -62,12 +62,66 @@ async function getTree(dirPath: string, basePath = ''): Promise<TreeNode[]> {
     .filter((item) => item.name[0] !== '.');
 }
 
+function buildTreeFromUrls(urls: string[]): TreeNode[] {
+  const root: Record<string, TreeNode> = {};
+
+  for (const url of urls) {
+    const relative = url.split(DISTANT_BASE_URL)[1];
+    if (!relative) continue;
+
+    const parts = relative.split('/').filter(Boolean);
+    let current = root;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i].replace('.md', '');
+      const isFile = i === parts.length - 1;
+
+      if (!current[part]) {
+        current[part] = {
+          name: part,
+          type: isFile ? 'file' : 'folder',
+          path:
+            '/notes/' +
+            parts
+              .slice(0, i + 1)
+              .join('/')
+              .replace('.md', ''),
+          children: [],
+        };
+      }
+
+      if (!isFile) {
+        // @ts-expect-error - dynamic nesting
+        current = current[part].__children || (current[part].__children = {});
+      }
+    }
+  }
+
+  function flatten(nodeMap: Record<string, any>): TreeNode[] {
+    return Object.values(nodeMap)
+      .map((node: any) => {
+        const children = node.__children ? flatten(node.__children) : [];
+        delete node.__children;
+        return { ...node, children };
+      })
+      .sort((a, b) => {
+        if (a.type === b.type) return a.name.localeCompare(b.name);
+        return a.type === 'folder' ? -1 : 1;
+      });
+  }
+
+  return flatten(root);
+}
+
 export default async function NoteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const tree = await getTree(FOLDER);
+  const tree =
+    SOURCE === 'local'
+      ? await getTree(FOLDER)
+      : buildTreeFromUrls(await getFilesDistant());
 
   return (
     <SidebarProvider>

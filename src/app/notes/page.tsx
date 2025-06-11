@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import { BASE_URL } from '@/config';
 
@@ -30,7 +31,9 @@ export default async function NotePage() {
         <>
           <Toc content={note.content} />
           <div className="prose mx-auto dark:prose-invert">
-            <ReactMarkdown components={componentsParams}>{note.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={componentsParams}>
+              {note.content}
+            </ReactMarkdown>
           </div>
         </>
       );

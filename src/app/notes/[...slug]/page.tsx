@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import { BASE_URL } from '@/config';
 import { TreeNode } from '@/types/types';
@@ -39,7 +40,9 @@ export default async function NotePage({ params }: NotePageProps) {
           <Toc content={note.content} />
           <div className="prose mx-auto dark:prose-invert">
             <h1>{note.name || ''}</h1>
-            <ReactMarkdown components={componentsParams}>{note.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={componentsParams}>
+              {note.content}
+            </ReactMarkdown>
           </div>
         </>
       );
